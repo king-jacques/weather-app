@@ -49,6 +49,11 @@ def create_app(config=config_dict['dev']):
         response.status_code = error.status_code
         return response
     
+    @app.errorhandler(404)
+    def not_found(error):
+        response = jsonify({"message": "requested resource is invalid or was not found"})
+        response.status_code = 404
+        return response
     # @app.errorhandler(Exception)
     # def handle_exception(error):
     #     response = jsonify({"message": "Something went wrong!"})

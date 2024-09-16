@@ -47,12 +47,15 @@ $ export OPEN_WEATHER_API_KEY=Your_API_KEY
 ```
 
 # RUN MIGRATIONS
-Since i am using a local sqlite db. you need to run the db
+Since i am using a local sqlite db. you need to run the db migrations the first time
 ```
 $ flask shell
 $ db.create_all()
 ```
 
+```
+$ python setup.py
+```
 
 # Finally
 
