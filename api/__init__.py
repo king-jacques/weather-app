@@ -12,7 +12,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from .exceptions import APIException
 
 SWAGGER_URL = '/docs'
-API_URL = '../static/docs.json'
+API_URL = '/static/docs.json'
 
 
 
