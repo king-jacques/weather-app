@@ -8,8 +8,13 @@ from flask_migrate import Migrate
 from werkzeug.exceptions import NotFound, MethodNotAllowed
 from .views import CityView, CityListView, WeatherRequestView, HistoryView, Heartbeat
 from flask_restful import Api as Router
-
+from flask_swagger_ui import get_swaggerui_blueprint
 from .exceptions import APIException
+
+SWAGGER_URL = '/docs'
+API_URL = '../static/swagger.json'
+
+
 
 def create_app(config=config_dict['dev']):
     app=Flask(__name__)
@@ -22,6 +27,17 @@ def create_app(config=config_dict['dev']):
     router.add_resource(CityView, '/city/<int:city_id>')
     router.add_resource(WeatherRequestView, '/weather/<int:city_id>')
     router.add_resource(HistoryView, '/history')
+
+    swaggerui_blueprint = get_swaggerui_blueprint(
+        SWAGGER_URL,
+        API_URL,
+        config={
+            'app_name': "Weather App"
+        }
+    )
+
+    app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
 
     db.init_app(app)
 
