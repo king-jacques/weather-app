@@ -51,11 +51,11 @@ Since i am using a local sqlite db. you need to run the db migrations the first 
 ```
 $ flask shell
 $ db.create_all()
+from setup import load_cities
+load_cities()
+exit()
 ```
 
-```
-$ python setup.py
-```
 
 # Finally
 
