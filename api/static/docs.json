@@ -7,7 +7,7 @@
     "paths": {
       "/history": {
         "get": {
-          "summary": "Returns history for last 5 weather requests",
+          "summary": "Returns history for last 5 successful weather requests",
           "responses": {
             "200": {
               "description": "Weather request log",
