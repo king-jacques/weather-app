@@ -54,7 +54,7 @@ class APITestCase(unittest.TestCase):
             assert response.status_code == 200
             log = WeatherRequestLog.query.first()
             assert log is not None
-            assert log.city.id == id
+            assert log.city_id == id
 
     def test_history_endpoint(self):
         with patch('api.views.WeatherRequestView') as mock_get:

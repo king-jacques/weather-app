@@ -55,16 +55,21 @@ class CityListView(Resource):
 
 class WeatherRequestView(Resource):
     def get(self, city_id):
-        city = City.get_object(city_id)
-        response = city.get_weather_report()
-        data = response.json()
-        status = Status.SUCCESS.value if response.ok else Status.FAILURE.value
-        WeatherRequestLog.log(json.dumps(data), city, status)
+        try:
+            city = City.query.get(city_id)
+            response = city.get_weather_report()
+            data = response.json()
+            status = Status.SUCCESS.value if response.ok else Status.FAILURE.value
+        except Exception as e:
+            error = {"error": str(e)}
+            data = json.dumps(error)
+            status = Status.FAILURE.value
+        WeatherRequestLog.log(json.dumps(data), city_id, status)
         return data, HTTPStatus.OK
     
 
 class HistoryView(Resource):
     @marshal_with(weather_fields)
     def get(self):
-        logs = WeatherRequestLog.query.order_by(WeatherRequestLog.created.desc()).limit(5).all()
+        logs = WeatherRequestLog.query.filter_by(status=Status.SUCCESS.value).order_by(WeatherRequestLog.created.desc()).limit(5).all()
         return logs, HTTPStatus.OK

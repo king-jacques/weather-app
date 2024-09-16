@@ -22,7 +22,8 @@ weather_summary = {
 weather_fields = {
     'id': fields.Integer,
     'status': fields.String,
-    'city': fields.String,
+    'city_name': fields.String,
+    'city_id': fields.Integer,
     'timestamp': fields.DateTime,
     'summary': fields.Nested(weather_summary)
 }

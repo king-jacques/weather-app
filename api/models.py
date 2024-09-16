@@ -25,10 +25,11 @@ class City(BaseModel):
     
 class WeatherRequestLog(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
-    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=False)
+    city_id = db.Column(db.Integer, nullable=False)
     status = db.Column(db.String(20), nullable=False)
     data = db.Column(db.Text, nullable=False)
-    city = db.relationship('City', backref='logs')
+    # city = db.relationship('City', backref='logs')
+    # city_pk = db.Column(db.Integer, nullable=False)
 
     @property
     def timestamp(self):
@@ -37,17 +38,22 @@ class WeatherRequestLog(BaseModel):
     @property
     def summary(self):
         from .serializers import weather_summary
+        data = json.loads(self.data)
         if self.status == Status.SUCCESS.value:
-            data = json.loads(self.data)
+            
             main = data["main"]
             weather = data["weather"][0]
             main_summary = {key: value for key, value in main.items() if key in weather_summary}
             weather_sum = {key: value for key, value in weather.items() if key in weather_summary}
             summary = main_summary | weather_sum
         else:
-            summary = {}
+            summary = data
         return summary
     
+    @property
+    def city_name(self):
+        return City.query.get(self.city_id)
+    
     @classmethod
-    def log(cls, data, city, status):
-        cls.create(data=data, city=city, status=status)
+    def log(cls, data, city_id, status):
+        cls.create(data=data, city_id=city_id, status=status)
