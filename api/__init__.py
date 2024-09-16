@@ -16,7 +16,9 @@ API_URL = '/static/docs.json'
 
 
 
-def create_app(config=config_dict['dev']):
+def create_app(config=None):
+    if not config:
+        config = config_dict['dev']
     app=Flask(__name__)
     app.config.from_object(config)
 
