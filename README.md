@@ -81,3 +81,4 @@ $ pytest
 - better error logging using a logger
 - better error handling
 - more robust unit tests
+- containerize app with docker
