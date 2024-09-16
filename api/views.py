@@ -61,8 +61,7 @@ class WeatherRequestView(Resource):
             data = response.json()
             status = Status.SUCCESS.value if response.ok else Status.FAILURE.value
         except Exception as e:
-            error = {"error": str(e)}
-            data = json.dumps(error)
+            data = {"error": str(e)}
             status = Status.FAILURE.value
         WeatherRequestLog.log(json.dumps(data), city_id, status)
         return data, HTTPStatus.OK
