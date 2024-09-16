@@ -44,7 +44,21 @@ $ export FLASK_APP=api/
 $ export FLASK_DEBUG=True
 
 $ export OPEN_WEATHER_API_KEY=Your_API_KEY
+```
 
+# RUN MIGRATIONS
+Since i am using a local sqlite db. you need to run the db
+```
+$ flask shell
+$ db.create_all()
+```
+
+
+# Finally
+
+To run the server.
+
+```
 $ python runserver.py
 
 ```
@@ -59,3 +73,11 @@ After successfully running project, to test:
 ```
 $ pytest
 ```
+
+** I have only implemented basic tests for the history and weather endpoints.
+
+# Potential Improvements
+- production grade db with postgres
+- better error logging using a logger
+- better error handling
+- more robust unit tests
