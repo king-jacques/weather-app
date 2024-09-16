@@ -82,3 +82,7 @@ $ pytest
 - better error handling
 - more robust unit tests
 - containerize app with docker
+
+
+# API Documentation
+Swagger documentation available at localhost:5000/docs
